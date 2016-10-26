@@ -1,0 +1,11 @@
+{
+  "name": "dyforms",
+  "version": "1.0.0",
+  "description": "dynamic forms",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.5.0",
+    "angular-route": "~1.5.0",
+    "angular-schema-form": "^0.8.13"
+  }
+}
