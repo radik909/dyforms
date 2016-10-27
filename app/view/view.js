@@ -12,6 +12,7 @@ angular.module('dyforms.view', ['ngRoute', 'schemaForm'])
 .controller('ViewCtrl', ['$scope', function($scope) {
   $scope.schema = {
     type: "object",
+    required: ["createdBy", "desc", "severity", "status"],
     properties: {
         createdBy: {
             type: "string",
@@ -48,12 +49,38 @@ angular.module('dyforms.view', ['ngRoute', 'schemaForm'])
   };
 
   $scope.form = [
-    "*",
-    {
-      type: "submit",
-      title: "Submit"
-    }
+      "createdBy",
+      "desc",
+      "severity",
+      "status",
+      {
+          key: "comments",
+          condition: "model.status === 'completed'"
+      },
+      {
+          key: "cancelledReason",
+          condition: "model.status === 'cancelled'"
+      },
+      {
+          key: "cancelledOtherDesc",
+          condition: "model.cancelledReason === 'others'"
+      },
+      {
+          type: "submit",
+          title: "Submit"
+      }
   ];
 
   $scope.model = {};
+
+  $scope.onSubmit = function(form) {
+    $scope.$broadcast('schemaFormValidate');
+
+    if (form.$valid) {
+        alert("Form submited. Please check console");
+        console.log($scope.model);
+    } else {
+        alert("Form is invalid");
+    }
+  }
 }]);
