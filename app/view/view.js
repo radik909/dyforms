@@ -13,11 +13,37 @@ angular.module('dyforms.view', ['ngRoute', 'schemaForm'])
   $scope.schema = {
     type: "object",
     properties: {
-      name: { type: "string", minLength: 2, title: "Name", description: "Name or alias" },
-      title: {
-        type: "string",
-        enum: ['dr','jr','sir','mrs','mr','NaN','dj']
-      }
+        createdBy: {
+            type: "string",
+            title: "CreatedBy"
+        },
+        desc: {
+            title: "Description",
+            type: "string"
+        },
+        severity: {
+            title: "Severity",
+            type: "number",
+            enum: [1, 2, 3, 4, 5]
+        },
+        status: {
+            title: "Status",
+            type: "string",
+            enum: ['cancelled', 'completed']
+        },
+        cancelledReason: {
+            title: "Cancelled Reason",
+            type: "string",
+            enum: ['enduser', 'others']
+        },
+        cancelledOtherDesc: {
+            title: "Cancelled By others description",
+            type: "string"
+        },
+        comments: {
+            title: "Comments",
+            type: "string"
+        }
     }
   };
 
@@ -25,7 +51,7 @@ angular.module('dyforms.view', ['ngRoute', 'schemaForm'])
     "*",
     {
       type: "submit",
-      title: "Save"
+      title: "Submit"
     }
   ];
 
