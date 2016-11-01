@@ -55,15 +55,18 @@ angular.module('dyforms.view', ['ngRoute', 'schemaForm'])
       "status",
       {
           key: "comments",
-          condition: "model.status === 'completed'"
+          condition: "model.status === 'completed'",
+          required: "model.status === 'completed'"
       },
       {
           key: "cancelledReason",
-          condition: "model.status === 'cancelled'"
+          condition: "model.status === 'cancelled'",
+          required: "model.status === 'cancelled'"
       },
       {
           key: "cancelledOtherDesc",
-          condition: "model.cancelledReason === 'others'"
+          condition: "model.cancelledReason === 'others'",
+          required: "model.cancelledReason === 'others'"
       },
       {
           type: "submit",
