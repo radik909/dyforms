@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dyforms.view', ['ngRoute', 'schemaForm'])
+angular.module('dyforms.view', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view', {
@@ -10,80 +10,5 @@ angular.module('dyforms.view', ['ngRoute', 'schemaForm'])
 }])
 
 .controller('ViewCtrl', ['$scope', function($scope) {
-  $scope.schema = {
-    type: "object",
-    required: ["createdBy", "desc", "severity", "status"],
-    properties: {
-        createdBy: {
-            type: "string",
-            title: "CreatedBy"
-        },
-        desc: {
-            title: "Description",
-            type: "string"
-        },
-        severity: {
-            title: "Severity",
-            type: "number",
-            enum: [1, 2, 3, 4, 5]
-        },
-        status: {
-            title: "Status",
-            type: "string",
-            enum: ['cancelled', 'completed']
-        },
-        cancelledReason: {
-            title: "Cancelled Reason",
-            type: "string",
-            enum: ['enduser', 'others']
-        },
-        cancelledOtherDesc: {
-            title: "Cancelled By others description",
-            type: "string"
-        },
-        comments: {
-            title: "Comments",
-            type: "string"
-        }
-    }
-  };
 
-  $scope.form = [
-      "createdBy",
-      "desc",
-      "severity",
-      "status",
-      {
-          key: "comments",
-          condition: "model.status === 'completed'",
-          required: "model.status === 'completed'"
-      },
-      {
-          key: "cancelledReason",
-          condition: "model.status === 'cancelled'",
-          required: "model.status === 'cancelled'"
-      },
-      {
-          key: "cancelledOtherDesc",
-          condition: "model.cancelledReason === 'others'",
-          required: "model.cancelledReason === 'others'"
-      },
-      {
-          type: "submit",
-          title: "Submit"
-      }
-  ];
-
-  $scope.model = {};
-
-  $scope.onSubmit = function(form) {
-    $scope.$broadcast('schemaFormValidate');
-
-    if (form.$valid) {
-        alert("Form submited. Please check console");
-        console.log($scope.model);
-    } else {
-        alert("Form is invalid");
-    }
-  }
 }]);

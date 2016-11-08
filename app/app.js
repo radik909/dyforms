@@ -2,8 +2,7 @@
 
 angular.module('dyforms', [
   'ngRoute',
-  'dyforms.view',
-  'schemaForm'
+  'dyforms.view'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $routeProvider.otherwise({redirectTo: '/view'});
