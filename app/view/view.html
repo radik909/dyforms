@@ -1,13 +1,13 @@
 <form name="dyform" class="form-horizontal" role="form" ng-submit="submitForm()" novalidate>
   <h1 class="text-center">{{dyForm.name}}</h1>
-  <div ng-repeat="field in dyForm.fields">
+  <div ng-repeat="(fieldName, field) in dyForm.fields">
 
     <!-- Text fields -->
     <div ng-if="field.type=='text'" class="form-group">
       <ng-form name="myForm">
         <label>{{field.label}}</label>
-        <input type="text" class="form-control" name="{{field.name}}" ng-model="field.value" ng-required="field.required">
-        <p class="help-block" ng-show="myForm.{{field.name}}.$invalid">Invalid</p>
+        <input type="text" class="form-control" name="{{fieldName}}" ng-model="field.value" ng-required="field.required">
+        <p class="help-block" ng-show="myForm.{{fieldName}}.$invalid">Invalid</p>
       </ng-form>
     </div>
 
@@ -15,8 +15,8 @@
     <div ng-if="field.type=='number'" class="form-group">
       <ng-form name="myForm">
         <label>{{field.label}}</label>
-        <input type="number" class="form-control" name="{{field.name}}" ng-model="field.value" ng-required="field.required" ng-min="field.min" ng-max="field.max">
-        <p class="help-block" ng-show="myForm.{{field.name}}.$invalid">Invalid</p>
+        <input type="number" class="form-control" name="{{fieldName}}" ng-model="field.value" ng-required="field.required" ng-min="field.min" ng-max="field.max">
+        <p class="help-block" ng-show="myForm.{{fieldName}}.$invalid">Invalid</p>
       </ng-form>
     </div>
 
@@ -24,9 +24,9 @@
     <div ng-if="field.type=='enum'" class="form-group">
       <ng-form name="myForm">
         <label>{{field.label}}</label>
-        <select class="form-control" name="{{field.name}}" ng-model="field.value" ng-required="field.required" ng-options="option as option for option in field.enumValues">
+        <select class="form-control" name="{{fieldName}}" ng-model="field.value" ng-required="field.required" ng-options="option as option for option in field.enumValues">
         </select>
-        <p class="help-block" ng-show="myForm.{{field.name}}.$invalid">Invalid</p>
+        <p class="help-block" ng-show="myForm.{{fieldName}}.$invalid">Invalid</p>
       </ng-form>
     </div>
   </div>

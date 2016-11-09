@@ -14,30 +14,27 @@ angular.module('dyforms.view', ['ngRoute'])
   $scope.dyForm = {
     name: 'Support form',
     fields:
-    [
-      {
-        name: 'name',
+    {
+      name: {
         label: 'Name',
         type: 'text',
         required: true,         // optional if not required
         condition: null         // optional if no condition dependent
       },
-      {
-        name: 'severity',
+      severity: {
         label: 'Severity',
         type: 'number',
         required: true,
         min: 1,                 // optional if not restricted
         max: 10                 // optional if not restricted
       },
-      {
-        name: 'status',
+      status: {
         label: 'Status',
         type: 'enum',
         enumValues: ['completed', 'cancelled'],
         required: true
       }
-    ]
+    }
   }
 
   $scope.submitForm = function(){
