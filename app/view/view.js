@@ -9,7 +9,7 @@ angular.module('dyforms.view', ['ngRoute'])
   });
 }])
 
-.controller('ViewCtrl', ['$scope', '$log', function($scope, $log) {
+.controller('ViewCtrl', ['$scope', function($scope) {
 
   $scope.dyForm = {
     name: 'Support form',
@@ -58,6 +58,5 @@ angular.module('dyforms.view', ['ngRoute'])
 
   $scope.submitForm = function(){
     alert("Form submitted successfully!\nSee console for details!")
-    $log.debug($scope.dyForm.fields);
   }
 }]);
