@@ -19,7 +19,7 @@ angular.module('dyforms.view', ['ngRoute'])
         label: 'Name',
         type: 'text',
         required: true,         // optional if not required
-        condition: null         // optional if no condition dependent
+        condition: null         // optional if not condition dependent
       },
       severity: {
         label: 'Severity',
@@ -33,6 +33,25 @@ angular.module('dyforms.view', ['ngRoute'])
         type: 'enum',
         enumValues: ['completed', 'cancelled'],
         required: true
+      },
+      comments: {
+        label: 'Comments',
+        type: 'text',
+        required: "dyForm.fields.status.value=='completed'",
+        condition: "dyForm.fields.status.value=='completed'"
+      },
+      cancelledReason: {
+        label: 'Cancelled Reason',
+        type: 'enum',
+        enumValues: ['enduser', 'others'],
+        required: "dyForm.fields.status.value=='cancelled'",
+        condition: "dyForm.fields.status.value=='cancelled'"
+      },
+      cancelledOtherDesc: {
+        label: 'Cancelled Description',
+        type: 'text',
+        required: "dyForm.fields.cancelledReason.value=='others'",
+        condition: "dyForm.fields.cancelledReason.value=='others'"
       }
     }
   }

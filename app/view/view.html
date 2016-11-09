@@ -3,33 +3,40 @@
   <div ng-repeat="(fieldName, field) in dyForm.fields">
 
     <!-- Text fields -->
-    <div ng-if="field.type=='text'" class="form-group">
+    <div ng-if="field.type=='text'" ng-show="{{field.condition || true}}" class="form-group">
       <ng-form name="myForm">
         <label>{{field.label}}</label>
-        <input type="text" class="form-control" name="{{fieldName}}" ng-model="field.value" ng-required="field.required">
-        <p class="help-block" ng-show="myForm.{{fieldName}}.$invalid">Invalid</p>
+        <input type="text" class="form-control" name="{{fieldName}}" ng-model="field.value" ng-required="{{field.required}}">
+        <p class="help-block" ng-show="myForm.{{fieldName}}.$invalid && !myForm.{{fieldName}}.$pristine">Invalid</p>
       </ng-form>
     </div>
 
     <!-- Number fields -->
-    <div ng-if="field.type=='number'" class="form-group">
+    <div ng-if="field.type=='number'" class="form-group" ng-show="{{field.condition || true}}">
       <ng-form name="myForm">
         <label>{{field.label}}</label>
-        <input type="number" class="form-control" name="{{fieldName}}" ng-model="field.value" ng-required="field.required" ng-min="field.min" ng-max="field.max">
-        <p class="help-block" ng-show="myForm.{{fieldName}}.$invalid">Invalid</p>
+        <input type="number" class="form-control" name="{{fieldName}}" ng-model="field.value" ng-required="{{field.required}}" ng-min="field.min" ng-max="field.max">
+        <p class="help-block" ng-show="myForm.{{fieldName}}.$invalid && !myForm.{{fieldName}}.$pristine">Invalid</p>
       </ng-form>
     </div>
 
     <!-- Select fields -->
-    <div ng-if="field.type=='enum'" class="form-group">
+    <div ng-if="field.type=='enum'" class="form-group" ng-show="{{field.condition || true}}">
       <ng-form name="myForm">
         <label>{{field.label}}</label>
-        <select class="form-control" name="{{fieldName}}" ng-model="field.value" ng-required="field.required" ng-options="option as option for option in field.enumValues">
+        <select class="form-control" name="{{fieldName}}" ng-model="field.value" ng-required="{{field.required}}" ng-options="option as option for option in field.enumValues">
         </select>
-        <p class="help-block" ng-show="myForm.{{fieldName}}.$invalid">Invalid</p>
+        <p class="help-block" ng-show="myForm.{{fieldName}}.$invalid && !myForm.{{fieldName}}.$pristine">Invalid</p>
       </ng-form>
     </div>
   </div>
 
   <button ng-disabled="dyform.$invalid" type="submit" class="btn btn-primary">Submit</button>
+  <ul>
+    <li ng-repeat="(key, errors) in dyform.$error track by $index"> <strong>{{ key }}</strong> errors
+      <ul>
+        <li ng-repeat="e in errors">{{ e.$name }} has an error: <strong>{{ key }}</strong>.</li>
+      </ul>
+    </li>
+  </ul>
 </form>
