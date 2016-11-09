@@ -57,6 +57,18 @@ angular.module('dyforms.view', ['ngRoute'])
   }
 
   $scope.submitForm = function(){
-    alert("Form submitted successfully!\nSee console for details!")
+    var json = {};
+    for (var key in $scope.dyForm.fields) {
+      var element = document.getElementById(key)
+      if(isVisible(element)) {
+        json[key] = $scope.dyForm.fields[key].value;
+      }
+    }
+    alert("Form submitted successfully!\nSee console for details!");
+    console.log(json);
+  }
+
+  function isVisible(element) {
+    return(element.offsetParent !== null);
   }
 }]);
