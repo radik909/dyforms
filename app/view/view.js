@@ -9,6 +9,39 @@ angular.module('dyforms.view', ['ngRoute'])
   });
 }])
 
-.controller('ViewCtrl', ['$scope', function($scope) {
+.controller('ViewCtrl', ['$scope', '$log', function($scope, $log) {
 
+  $scope.dyForm = {
+    name: 'Support form',
+    fields:
+    [
+      {
+        name: 'name',
+        label: 'Name',
+        type: 'text',
+        required: true,         // optional if not required
+        condition: null         // optional if no condition dependent
+      },
+      {
+        name: 'severity',
+        label: 'Severity',
+        type: 'number',
+        required: true,
+        min: 1,                 // optional if not restricted
+        max: 10                 // optional if not restricted
+      },
+      {
+        name: 'status',
+        label: 'Status',
+        type: 'enum',
+        enumValues: ['completed', 'cancelled'],
+        required: true
+      }
+    ]
+  }
+
+  $scope.submitForm = function(){
+    alert("Form submitted successfully!\nSee console for details!")
+    $log.debug($scope.dyForm.fields);
+  }
 }]);
