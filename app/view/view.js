@@ -9,7 +9,7 @@ angular.module('dyforms.view', ['ngRoute'])
   });
 }])
 
-  .controller('ViewCtrl', ['$scope', '$interpolate', function($scope, $interpolate) {
+.controller('ViewCtrl', ['$scope', '$interpolate', function($scope, $interpolate) {
 
   $scope.dyForm = {
     name: 'Support form',
@@ -68,6 +68,8 @@ angular.module('dyforms.view', ['ngRoute'])
     }
   }
 
+  var original = angular.copy($scope.dyForm);
+
   $scope.check = function(condition) {
     if (condition === undefined || condition === null) {
       return true;
@@ -89,15 +91,14 @@ angular.module('dyforms.view', ['ngRoute'])
     var json = {};
     for (var key in $scope.dyForm.fields) {
       var element = document.getElementById(key)
-      if(isVisible(element)) {
+      if(element) {
         json[key] = $scope.dyForm.fields[key].value;
       }
     }
+    $scope.dyForm = angular.copy(original);
+    $scope.dyform.$setPristine();
     alert("Form submitted successfully!\nSee console for details!");
     console.log(json);
   }
 
-  function isVisible(element) {
-    return(element.offsetParent !== null);
-  }
 }]);
