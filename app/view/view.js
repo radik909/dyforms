@@ -21,13 +21,13 @@ angular.module('dyforms.view', ['ngRoute'])
     if (condition === undefined || condition === null) {
       return true;
     } else {
-      var truthy = true;
+      var truthy = true;        // if condition was {}
       for (var key in condition) {
         var element = document.getElementById(key)
-        if(element) {
-          truthy = truthy && $scope.dyForm.fields[key].value === condition[key];
+        if(truthy && element) {
+          truthy = $scope.dyForm.fields[key].value === condition[key];
         } else {
-          truthy = false;
+          return false;
         }
       }
       return truthy;
