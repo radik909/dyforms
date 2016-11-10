@@ -9,66 +9,13 @@ angular.module('dyforms.view', ['ngRoute'])
   });
 }])
 
-.controller('ViewCtrl', ['$scope', '$interpolate', function($scope, $interpolate) {
+.controller('ViewCtrl', ['$scope', '$http', function($scope, $http) {
 
-  $scope.dyForm = {
-    name: 'Support form',
-    fields:
-    {
-      name: {
-        label: 'Name',
-        type: 'text',
-        required: true,         // optional if not required
-        condition: null         // optional if not condition dependent
-      },
-      severity: {
-        label: 'Severity',
-        type: 'number',
-        required: true,
-        min: 1,                 // optional if not restricted
-        max: 10                 // optional if not restricted
-      },
-      status: {
-        label: 'Status',
-        type: 'enum',
-        enumValues: ['completed', 'cancelled'],
-        required: true
-      },
-      comments: {
-        label: 'Comments',
-        type: 'text',
-        required: {
-          status: 'completed'
-        },
-        condition: {
-          status: 'completed'
-        }
-      },
-      cancelledReason: {
-        label: 'Cancelled Reason',
-        type: 'enum',
-        enumValues: ['enduser', 'others'],
-        required: {
-          status: 'cancelled'
-        },
-        condition: {
-          status: 'cancelled'
-        }
-      },
-      cancelledOtherDesc: {
-        label: 'Cancelled Description',
-        type: 'text',
-        required: {
-          cancelledReason: 'others'
-        },
-        condition: {
-          cancelledReason: 'others'
-        }
-      }
-    }
-  }
-
-  var original = angular.copy($scope.dyForm);
+  var original = null;
+  $http.get('form.json').success(function(data) {
+    $scope.dyForm = data;
+    original = angular.copy(data);
+  });
 
   $scope.check = function(condition) {
     if (condition === undefined || condition === null) {
@@ -95,8 +42,10 @@ angular.module('dyforms.view', ['ngRoute'])
         json[key] = $scope.dyForm.fields[key].value;
       }
     }
+    // Reset form
     $scope.dyForm = angular.copy(original);
     $scope.dyform.$setPristine();
+
     alert("Form submitted successfully!\nSee console for details!");
     console.log(json);
   }

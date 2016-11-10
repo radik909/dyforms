@@ -1,0 +1,56 @@
+{
+  "name": "Support form",
+  "fields":
+  {
+    "name": {
+      "label": "Name",
+      "type": "text",
+      "required": true,
+      "condition": null
+    },
+    "severity": {
+      "label": "Severity",
+      "type": "number",
+      "required": true,
+      "min": 1,
+      "max": 10
+    },
+    "status": {
+      "label": "Status",
+      "type": "enum",
+      "required": true,
+      "enumValues": ["completed", "cancelled"]
+    },
+    "comments": {
+      "label": "Comments",
+      "type": "text",
+      "required": {
+        "status": "completed"
+      },
+      "condition": {
+        "status": "completed"
+      }
+    },
+    "cancelledReason": {
+      "label": "Cancelled Reason",
+      "type": "enum",
+      "enumValues": ["enduser", "others"],
+      "required": {
+        "status": "cancelled"
+      },
+      "condition": {
+        "status": "cancelled"
+      }
+    },
+    "cancelledOtherDesc": {
+      "label": "Cancelled Description",
+      "type": "text",
+      "required": {
+        "cancelledReason": "others"
+      },
+      "condition": {
+        "cancelledReason": "others"
+      }
+    }
+  }
+}

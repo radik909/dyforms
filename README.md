@@ -11,4 +11,18 @@ Have node, npm & bower installed.
 
 ## To edit the form fields:
 
-Edit the file `app/view/view.js` (i.e. $scope.schema) to change the json input
+Edit the file `app/form.json`
+
+## Details:
+
+In the file `form.json`,
+
+* `name` - name of the form
+* `fields` - fields in the form (as an object)
+
+Optional properties,
+
+* required
+* condition
+* min(for `number` type)
+* max(for `number` type)
