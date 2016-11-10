@@ -9,7 +9,7 @@ angular.module('dyforms.view', ['ngRoute'])
   });
 }])
 
-.controller('ViewCtrl', ['$scope', function($scope) {
+  .controller('ViewCtrl', ['$scope', '$interpolate', function($scope, $interpolate) {
 
   $scope.dyForm = {
     name: 'Support form',
@@ -37,22 +37,51 @@ angular.module('dyforms.view', ['ngRoute'])
       comments: {
         label: 'Comments',
         type: 'text',
-        required: "dyForm.fields.status.value=='completed'",
-        condition: "dyForm.fields.status.value=='completed'"
+        required: {
+          status: 'completed'
+        },
+        condition: {
+          status: 'completed'
+        }
       },
       cancelledReason: {
         label: 'Cancelled Reason',
         type: 'enum',
         enumValues: ['enduser', 'others'],
-        required: "dyForm.fields.status.value=='cancelled'",
-        condition: "dyForm.fields.status.value=='cancelled'"
+        required: {
+          status: 'cancelled'
+        },
+        condition: {
+          status: 'cancelled'
+        }
       },
       cancelledOtherDesc: {
         label: 'Cancelled Description',
         type: 'text',
-        required: "dyForm.fields.cancelledReason.value=='others'",
-        condition: "dyForm.fields.cancelledReason.value=='others'"
+        required: {
+          cancelledReason: 'others'
+        },
+        condition: {
+          cancelledReason: 'others'
+        }
       }
+    }
+  }
+
+  $scope.check = function(condition) {
+    if (condition === undefined || condition === null) {
+      return true;
+    } else {
+      var truthy = true;
+      for (var key in condition) {
+        var element = document.getElementById(key)
+        if(element) {
+          truthy = truthy && $scope.dyForm.fields[key].value === condition[key];
+        } else {
+          truthy = false;
+        }
+      }
+      return truthy;
     }
   }
 
