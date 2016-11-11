@@ -23,7 +23,7 @@ angular.module('dyforms.view', ['ngRoute'])
     } else {
       var truthy = true;        // if condition was {}
       for (var key in condition) {
-        var element = document.getElementById(key)
+        var element = document.dyform.elements[key]
         if(truthy && element) {
           truthy = $scope.dyForm.fields[key].value === condition[key];
         } else {
@@ -37,7 +37,7 @@ angular.module('dyforms.view', ['ngRoute'])
   $scope.submitForm = function(){
     var json = {};
     for (var key in $scope.dyForm.fields) {
-      var element = document.getElementById(key)
+      var element = document.dyform.elements[key]
       if(element) {
         json[key] = $scope.dyForm.fields[key].value;
       }
